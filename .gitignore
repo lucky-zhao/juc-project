@@ -1,4 +1,7 @@
 
-# IntelliJ project files
-/.idea/
-*.imi
+#IntelliJ
+.idea/
+logs/
+*.iml
+out/
+target/
