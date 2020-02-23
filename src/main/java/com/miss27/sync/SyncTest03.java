@@ -4,12 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhao
- * 同一个对象调用个一个非静态的同步方法和一个非静态非同步方法
+ * 两个对象调用两个同步方法
  */
-public class SyncTest02 {
+public class SyncTest03 {
 
     public static void main(String[] args) throws InterruptedException {
-        Print2 print = new Print2();
+        //创建两个对象实例
+        Print3 print = new Print3();
+        Print3 pt = new Print3();
         new Thread(() -> {
             try {
                 print.printA();
@@ -21,22 +23,21 @@ public class SyncTest02 {
 
         new Thread(() -> {
             try {
-                print.printB();
+                pt.printB();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }, "B").start();
-
     }
 }
 
-class Print2 {
+class Print3 {
     public synchronized void printA() throws InterruptedException {
         TimeUnit.SECONDS.sleep(4);//模拟业务代码，假设业务需要执行3秒
         System.out.println("A");
     }
 
-    public void printB() throws InterruptedException {
+    public synchronized void printB() throws InterruptedException {
         System.out.println("B");
     }
 }
